@@ -30,7 +30,7 @@ fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
     when (val current = state) {
         is UiState.Loading -> LoadingIndicator()
         is UiState.Error -> ErrorMessage(
-            message = stringResource(R.string.error_generic),
+            message = stringResource(errorMessageRes(current.throwable)),
             onRetry = viewModel::loadDetails
         )
         is UiState.Success -> DetailContent(current.data)

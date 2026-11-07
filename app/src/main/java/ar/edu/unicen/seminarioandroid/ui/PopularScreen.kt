@@ -43,7 +43,7 @@ fun PopularScreen(
     when (val current = state) {
         is UiState.Loading -> LoadingIndicator()
         is UiState.Error -> ErrorMessage(
-            message = stringResource(R.string.error_generic),
+            message = stringResource(errorMessageRes(current.throwable)),
             onRetry = viewModel::loadMovies
         )
         is UiState.Success -> MovieList(

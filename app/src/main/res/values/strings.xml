@@ -3,4 +3,6 @@
     <string name="retry">Retry</string>
     <string name="error_generic">Something went wrong. Please try again.</string>
     <string name="rating">Rating: %1$.1f</string>
+    <string name="error_no_internet">No internet connection. Check your connection and try again.</string>
+    <string name="error_server">The server returned an error. Please try again later.</string>
 </resources>
