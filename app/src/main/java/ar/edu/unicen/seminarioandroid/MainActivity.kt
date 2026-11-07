@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import ar.edu.unicen.seminarioandroid.ui.AppNavigation
 import ar.edu.unicen.seminarioandroid.ui.PopularScreen
 import ar.edu.unicen.seminarioandroid.ui.theme.SeminarioAndroidTheme
 
@@ -20,9 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SeminarioAndroidTheme {
-
-
-                PopularScreen(onMovieClick = {})
+                AppNavigation()
             }
 
         }

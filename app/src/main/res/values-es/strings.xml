@@ -2,4 +2,5 @@
 <resources>
     <string name="retry">Reintentar</string>
     <string name="error_generic">Algo salio mal. Intenta de nuevo.</string>
+    <string name="rating">Puntuacion: %1$.1f</string>
 </resources>
