@@ -10,7 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
+import android.content.res.Configuration
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -57,12 +61,18 @@ fun PopularScreen(
 
 @Composable
 private fun MovieList(movies: LazyPagingItems<Movie>, onMovieClick: (Int) -> Unit) {
-    LazyColumn(
+    // leemos la orientacion actual, al rotar se recrea la activity y esto se recalcula
+    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+    // una columna en vertical (queda igual que la lista) y dos en horizontal
+    val columns = if (isLandscape) 2 else 1
+
+    // lazyverticalgrid es como lazycolumn pero con varias columnas, tambien dibuja solo lo visible
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(columns),
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // acceder a movies[index] es lo que hace que paging pida la pagina siguiente
-        // cuando el usuario se acerca al final de la lista
         items(count = movies.itemCount, key = movies.itemKey { it.id }) { index ->
             val movie = movies[index]
             if (movie != null) {
@@ -70,14 +80,15 @@ private fun MovieList(movies: LazyPagingItems<Movie>, onMovieClick: (Int) -> Uni
             }
         }
 
-        // append es el estado de la carga de las paginas siguientes, se muestra al final de la lista
+        // el loading y el error de abajo ocupan todo el ancho (maxLineSpan = todas las columnas)
+        // si no, quedarian metidos en una sola columna
         when (val append = movies.loadState.append) {
-            is LoadState.Loading -> item {
+            is LoadState.Loading -> item(span = { GridItemSpan(maxLineSpan) }) {
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
             }
-            is LoadState.Error -> item {
+            is LoadState.Error -> item(span = { GridItemSpan(maxLineSpan) }) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
