@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="retry">Reintentar</string>
+    <string name="error_generic">Algo salio mal. Intenta de nuevo.</string>
+</resources>

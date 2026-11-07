@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SeminarioAndroid</string>
+    <string name="app_name" translatable="false">SeminarioAndroid</string>
+    <string name="retry">Retry</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
 </resources>
