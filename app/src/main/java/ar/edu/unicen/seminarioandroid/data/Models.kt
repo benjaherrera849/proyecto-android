@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName
 // respuesta de la api cuando pedimos una lista de peliculas (populares, busqueda, etc)
 data class MovieListResponse(
     val page: Int,
-    val results: List<Movie>
+    val results: List<Movie>,
+    // lo necesitamos para saber cuando no hay mas paginas
+    @SerializedName("total_pages") val totalPages: Int
 )
 
 // version resumida de una pelicula, la que se usa en las listas
